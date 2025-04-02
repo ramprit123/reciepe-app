@@ -1,14 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-
 export default function HomeScreen() {
-  const chartData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-    datasets: [
-      {
-        data: [2000, 1800, 2200, 1900, 2400, 2100],
-      },
-    ],
-  };
 
 
   return (
