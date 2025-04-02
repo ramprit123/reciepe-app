@@ -1,11 +1,32 @@
-import { View, Text, Switch, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useTheme } from '@/components/ThemeContext';
-import { Moon, Bell, Globe, Lock, CreditCard, CircleHelp as HelpCircle } from 'lucide-react-native';
+import { Bell, CreditCard, Globe, CircleHelp as HelpCircle, Lock, Moon } from 'lucide-react-native';
+import { ScrollView, StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native';
+import { router } from 'expo-router';
+
+type SettingItem = {
+  icon: any;
+  title: string;
+  type: 'switch' | 'link';
+  value?: boolean | string;
+  onValueChange?: (value: boolean) => void;
+  href?: string;
+};
+
+type SettingSection = {
+  title: string;
+  items: SettingItem[];
+};
 
 export default function SettingsScreen() {
   const { isDark, toggleTheme } = useTheme();
 
-  const SETTINGS_SECTIONS = [
+  const handleLinkPress = (item: SettingItem) => {
+    if (item.href) {
+      router.push(item.href as any);
+    }
+  };
+
+  const SETTINGS_SECTIONS: SettingSection[] = [
     {
       title: 'Appearance',
       items: [
@@ -79,7 +100,6 @@ export default function SettingsScreen() {
       <View style={[styles.header, { backgroundColor: isDark ? '#2a2a2a' : '#fff' }]}>
         <Text style={[styles.title, { color: isDark ? '#fff' : '#1a1a1a' }]}>Settings</Text>
       </View>
-
       <View style={styles.content}>
         {SETTINGS_SECTIONS.map((section, sectionIndex) => (
           <View key={sectionIndex} style={styles.section}>
@@ -94,7 +114,9 @@ export default function SettingsScreen() {
                     styles.settingItem,
                     itemIndex < section.items.length - 1 && styles.borderBottom,
                     { borderBottomColor: isDark ? '#333' : '#f0f0f0' },
-                  ]}>
+                  ]}
+                  onPress={() => item.type === 'link' && handleLinkPress(item)}
+                  disabled={item.type === 'switch'}>
                   <View style={styles.settingItemLeft}>
                     <View
                       style={[styles.iconContainer, { backgroundColor: isDark ? '#333' : '#f0f0f0' }]}>
@@ -106,14 +128,14 @@ export default function SettingsScreen() {
                   </View>
                   {item.type === 'switch' ? (
                     <Switch
-                      value={item.value}
+                      value={Boolean(item.value)}
                       onValueChange={item.onValueChange}
                       trackColor={{ false: '#767577', true: '#007AFF' }}
                       thumbColor={isDark ? '#fff' : '#f4f3f4'}
                     />
                   ) : (
                     <View style={styles.settingItemRight}>
-                      {item.value && (
+                      {typeof item.value === 'string' && (
                         <Text style={[styles.settingItemValue, { color: isDark ? '#888' : '#666' }]}>
                           {item.value}
                         </Text>
