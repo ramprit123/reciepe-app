@@ -1,4 +1,5 @@
 import { Marquee } from '@animatereactnative/marquee';
+import { useLogto } from '@logto/rn';
 import { StatusBar } from 'expo-status-bar';
 import React, { useMemo } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
@@ -16,6 +17,7 @@ const IMAGE_LIST = [
 ];
 
 const Landing = () => {
+  const { signIn, isAuthenticated } = useLogto();
   /**
    * Creates three rows of shuffled images using useMemo for performance optimization
    *
@@ -60,10 +62,13 @@ const Landing = () => {
       </View>
       <View className="flex items-center mt-10">
         <TouchableOpacity
+          onPress={() => signIn('exp://192.168.31.172:8081')}
           className="border-2 border-slate-600 rounded-full px-8 py-3"
           activeOpacity={0.7}
         >
-          <Text className="text-lg font-semibold">SIGN IN</Text>
+          <Text className="text-lg font-semibold">
+            {isAuthenticated ? 'Get Started' : 'Sign In'}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

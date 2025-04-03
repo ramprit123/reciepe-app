@@ -7,12 +7,25 @@ import {
   Inter_700Bold,
   useFonts,
 } from '@expo-google-fonts/inter';
+import { LogtoConfig, LogtoProvider, UserScope } from '@logto/rn';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SplashScreen, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import '../global.css';
+
+const config: LogtoConfig = {
+  endpoint: process.env.EXPO_PUBLIC_LOGTO_ENDPOINT!,
+  appId: process.env.EXPO_PUBLIC_LOGTO_KEY!,
+  scopes: [
+    UserScope.Email,
+    UserScope.Phone,
+    UserScope.CustomData,
+    UserScope.Identities,
+    UserScope.Organizations,
+  ],
+};
 
 const queryClient = new QueryClient();
 export default function RootLayout() {
@@ -36,17 +49,19 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider>
-      <GestureHandlerRootView>
-        <QueryClientProvider client={queryClient}>
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" options={{ title: 'Oops!' }} />
-          </Stack>
-          <StatusBar style="auto" />
-        </QueryClientProvider>
-      </GestureHandlerRootView>
-    </ThemeProvider>
+    <LogtoProvider config={config}>
+      <ThemeProvider>
+        <GestureHandlerRootView>
+          <QueryClientProvider client={queryClient}>
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="+not-found" options={{ title: 'Oops!' }} />
+            </Stack>
+            <StatusBar style="auto" />
+          </QueryClientProvider>
+        </GestureHandlerRootView>
+      </ThemeProvider>
+    </LogtoProvider>
   );
 }
