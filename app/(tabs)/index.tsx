@@ -1,17 +1,12 @@
+import { useUser } from '@/context/UserContext';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 export default function HomeScreen() {
-
-
+  const { user } = useUser();
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.greeting}>Good morning,</Text>
-        <Text style={styles.name}>John Doe</Text>
-      </View>
-     
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Recent Transactions</Text>
-        {/* Add recent transactions list here */}
+        <Text style={styles.name}>{user?.name}</Text>
       </View>
     </ScrollView>
   );

@@ -23,7 +23,6 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export function UserProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<IdTokenClaims | null>(null);
 
-  // Use useCallback for loadUser to prevent recreation on each render
   const loadUser = useCallback(async () => {
     try {
       const storedUser = await AsyncStorage.getItem('user');
