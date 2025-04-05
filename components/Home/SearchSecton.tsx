@@ -1,5 +1,6 @@
 import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
 import React from 'react';
+import { Button } from '../common/Button';
 
 const SearchSecton = () => {
   return (
@@ -20,11 +21,7 @@ const SearchSecton = () => {
       />
 
       <View className="flex-row justify-center mt-4">
-        <TouchableOpacity className="bg-green-500 px-6 py-3 rounded-full">
-          <Text className="text-white font-semibold text-lg">
-            Generate Recipes
-          </Text>
-        </TouchableOpacity>
+        <Button title="Generate Recipes" icon="color-wand-sharp" />
       </View>
     </View>
   );
