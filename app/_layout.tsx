@@ -14,6 +14,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import '../global.css';
+import { UserProvider } from '@/context/UserContext';
 
 const config: LogtoConfig = {
   endpoint: process.env.EXPO_PUBLIC_LOGTO_ENDPOINT!,
@@ -50,18 +51,20 @@ export default function RootLayout() {
 
   return (
     <LogtoProvider config={config}>
-      <ThemeProvider>
-        <GestureHandlerRootView>
-          <QueryClientProvider client={queryClient}>
-            <Stack screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen name="+not-found" options={{ title: 'Oops!' }} />
-            </Stack>
-            <StatusBar style="auto" />
-          </QueryClientProvider>
-        </GestureHandlerRootView>
-      </ThemeProvider>
+      <UserProvider>
+        <ThemeProvider>
+          <GestureHandlerRootView>
+            <QueryClientProvider client={queryClient}>
+              <Stack screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen name="+not-found" options={{ title: 'Oops!' }} />
+              </Stack>
+              <StatusBar style="auto" />
+            </QueryClientProvider>
+          </GestureHandlerRootView>
+        </ThemeProvider>
+      </UserProvider>
     </LogtoProvider>
   );
 }
