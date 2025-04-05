@@ -1,13 +1,13 @@
+import Header from '@/components/Home/Header';
+import SearchSecton from '@/components/Home/SearchSecton';
 import { useUser } from '@/context/UserContext';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 export default function HomeScreen() {
   const { user } = useUser();
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.greeting}>Good morning,</Text>
-        <Text style={styles.name}>{user?.name}</Text>
-      </View>
+      <Header user={user} />
+      <SearchSecton />
     </ScrollView>
   );
 }
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8f8f8',
   },
   header: {
-    padding: 20,
+    padding: 10,
     paddingTop: 60,
     backgroundColor: '#fff',
   },
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontFamily: 'Inter_700Bold',
-    fontSize: 24,
+    fontSize: 20,
     color: '#1a1a1a',
     marginTop: 4,
   },
