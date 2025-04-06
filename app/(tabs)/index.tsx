@@ -5,7 +5,7 @@ import { ScrollView, StyleSheet } from 'react-native';
 export default function HomeScreen() {
   const { user } = useUser();
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Header user={user} />
       <SearchSecton />
     </ScrollView>

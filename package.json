@@ -7,8 +7,12 @@
     "dev": "EXPO_NO_TELEMETRY=1 expo start",
     "build:web": "expo export --platform web",
     "lint": "expo lint",
-    "ios": "npx expo start ios",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "start:clean": "expo start --clear"
   },
   "dependencies": {
     "@animatereactnative/marquee": "^0.5.2",
@@ -21,6 +25,7 @@
     "@react-navigation/native": "^7.0.14",
     "@supabase/supabase-js": "^2.39.3",
     "@tanstack/react-query": "^5.71.1",
+    "ajv": "^8.17.1",
     "axios": "^1.8.4",
     "expo": "52.0.33",
     "expo-blur": "^14.0.3",
